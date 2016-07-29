@@ -1,0 +1,10 @@
+[Unit]
+Description=this is a unit file to launch fms service
+After=docker.service
+Requires=docker.service
+
+[Service]
+ExecStart=./fms-service-launcher.sh start
+
+[Install]
+WantedBy=multi-user.target
