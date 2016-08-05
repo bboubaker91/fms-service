@@ -1,0 +1,23 @@
+# Define a list of generated files so that they can be cleaned as well
+interface_xml := fms.xml
+cleanfiles := fms-client-stub.h \
+              fms-server-stub.h
+
+# ... Listing cut for brevity ...
+
+# If the interface XML changes, the respective stub interfaces will be
+# automatically regenerated. Normally this would also mean that your
+# builds would fail after this since you'd be missing implementation
+# code.
+fms-server-stub.h: $(interface_xml)
+	dbus-binding-tool --prefix=value_object --mode=glib-server \
+	  $< > $@
+
+fms-client-stub.h: $(interface_xml)
+	dbus-binding-tool --prefix=value_object --mode=glib-client \
+	  $< > $@
+
+# ... Listing cut for brevity ...
+
+clean:
+	$(RM) $(targets) $(cleanfiles) *.o

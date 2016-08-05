@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+
+<CAN>
+<FMS>
+<PGN id='0x98fee6ee' handler='FMSTimeDateHandler' status='activated' value='65254'></PGN>
+<PGN id='0x8cf00300' handler='FMSAcceleratorPedalPositionHandler' status='activated' value='61443'></PGN>
+<PGN id='0x98f00503' handler='FMSGearHandler' status='activated' value='61445'></PGN>
+<PGN id='0x98fe4eec' handler='FMSDoorHandler' status='activated' value='65102'></PGN>
+<PGN id='0x98fec1ee' handler='FMSVehiculeDistanceHandler' status='activated' value='65217'></PGN>
+<PGN id='0x98fee527' handler='FMSActivateEngineDurationhandler' status='activated' value='65253'></PGN>
+<PGN id='0x98feee00' handler='FMSEngineLiquideTemperatureHandler' status='activated' value='65262'></PGN>
+<PGN id='0x98FEF100' handler='FMSCCVSHandler' status='activated' value='65265'></PGN>
+<PGN id='0x98FEF227' handler='FMSFuelHandler' status='activated' value='65266'></PGN>
+<PGN id='0x98FEF500' handler='FMSAMBHandler' status='activated' value='65269'></PGN>
+<PGN id='0x98FEFC21' handler='FMSDashDisplayHandler' status='activated' value='65276'></PGN>
+<PGN id='0x98FEE927' handler='FMSFuelConsumptionHandler' status='activated' value='65257'></PGN>
+<PGN id='0x8cf00400' handler='FMSEngineHandler' status='activated' value='61444'></PGN>
+</FMS>
+</CAN>

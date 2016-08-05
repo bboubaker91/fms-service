@@ -1,0 +1,629 @@
+
+ <!DOCTYPE html>
+<html>
+
+    <head>
+         <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width">
+    <style>
+      body {
+        text-align: center;
+          }
+
+   
+ #g1, #g2{
+        width:200px; height:150px;
+        display: inline-block;
+      }
+
+
+      #container {
+ 
+}
+
+    </style>
+         <!-- Bootstrap -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="js/kickstart.js"></script> <!-- KICKSTART -->
+
+    <script src="js/flipclock.js"></script>    
+    <script src="js/raphael-2.1.4.min.js"></script>
+    <script src="js/justgage.js"></script>
+    <script src="js/progressbar.js"></script>
+
+    <script src="js/progressbar.js"></script>
+
+    <script src="js/sweetalert.min.js"></script>
+
+
+<link rel="stylesheet" href="css/kickstart.css" media="all" />
+<link rel="stylesheet" href="css/flipclock.css"/>
+<link rel="stylesheet" href="css/sweetalert.css" media="all" />  <!-- KICKSTART -->
+  </body>
+      
+    <script type="text/javascript">
+
+  var g1;
+  var g2;
+  var bar;
+  var websocket;
+  var conducteur_id;
+
+window.onload = function(){
+
+
+ g1 = new JustGage({
+          id: "g1",
+          value: 0,
+          min: 0,
+          max: 8000,
+          
+          label: "Tr/min"
+        });
+
+ g2 = new JustGage({
+          id: "g2",
+          value: 0,
+          min: 0,
+          max: 250,
+          
+          label: "Km/h"
+        });
+
+bar = new ProgressBar.Line(container, {
+  strokeWidth: 4,
+  easing: 'easeInOut',
+  duration: 200,
+  color: '#FFEA82',
+  trailColor: '#eee',
+  trailWidth: 1,
+  svgStyle: {width: '100%', height: '100%'},
+  from: {color: '#FFEA82'},
+  to: {color: '#ff0000'}, 
+   text: {
+    style: {
+      // Text color.
+      // Default: same as stroke color (options.color)
+      color: '#999',
+     
+      right: '0',
+      top: '30px',
+      padding: 0,
+      margin: 0,
+      transform: null
+    },
+    autoStyleContainer: false
+  },
+  step: (state, bar) => {
+    bar.setText(Math.round(bar.value() * 100) + ' %');
+    bar.path.setAttribute('stroke', state.color);
+  }
+});
+ // Number from 0.0 to 1.0
+
+
+};
+        var request0Data="1";
+        var request1Data="";
+        var request2Data="";
+        var request3Data="0";
+        var request4Data="";
+        var request5Data="";
+        var request6Data="";
+        var request7DateData="";
+        var request7TimeData="";
+        var StartTrajectDate;
+        var StartTrajectDistance="";
+        var StartTrajectFuel="";
+
+        var request8Data="";
+        var request9Data="";
+        var request10Data="0";
+
+        var Resquest1Task;
+        var Resquest2Task;
+        var Resquest3Task;
+        var Resquest5Task;
+        var Resquest6Task;
+        var Resquest7Task;
+        var Resquest8Task;
+        var Resquest9Task;
+        var TrajectTimeTask;
+       
+         
+          
+            $(function() {
+              
+                window.WebSocket = window.WebSocket || window.MozWebSocket;
+                 websocket = new WebSocket('ws://172.24.239.163:9001', 'myprotocol');
+                websocket.onopen = function () {
+                   
+                    websocket.send('{"request":0}');
+                    websocket.send('{"request":9}');
+                    websocket.send('{"request":8}');
+
+                     
+
+
+ 
+     
+
+                };
+                websocket.onerror = function () {
+                  swal("erreur de connexion avec ACUIII perdue" );
+
+                  clearInterval(Resquest1Task);
+                  clearInterval(Resquest2Task);
+
+                  clearInterval(Resquest3Task);
+
+                  clearInterval(Resquest5Task);
+
+                  clearInterval(Resquest6Task);
+
+                  clearInterval(Resquest7Task);
+
+                  clearInterval(TrajectTimeTask);
+
+                  clearInterval(Resquest8Task);
+                  clearInterval(Resquest9Task);
+                  document.getElementById("brakeIMG").src="images/brake-not-set.png"; 
+                  document.getElementById("gearIMG").src="images/gear-0.png"; 
+                  document.getElementById('TemperatureID').value="";
+
+                  bar.animate(0);
+                  g1.refresh(0);
+                    g2.refresh(0);
+
+clearInterval(Resquest8Task);
+
+
+                  
+                  
+                };
+                websocket.onclose = function(){
+
+                swal("connexion avec ACUIII fermée" );
+                clearInterval(Resquest1Task);
+                  clearInterval(Resquest2Task);
+
+                  clearInterval(Resquest3Task);
+
+                  clearInterval(Resquest5Task);
+
+                  clearInterval(Resquest6Task);
+
+                  clearInterval(Resquest7Task);
+                  clearInterval(Resquest8Task);
+                  clearInterval(Resquest9Task);
+                  clearInterval(TrajectTimeTask);
+                  document.getElementById('TemperatureID').value="";
+
+                  bar.animate(0);
+                  document.getElementById("brakeIMG").src="images/brake-not-set.png"; 
+                  document.getElementById("gearIMG").src="images/gear-0.png"; 
+                  g1.refresh(0);
+                    g2.refresh(0);
+
+                }
+
+
+                websocket.onmessage = function (message) {
+                                      var obj = JSON.parse(message.data);
+                    var id=obj.request_id;
+                       if (id==0)
+                    {
+                       request0Data= obj.eco_training_start_traject_status;
+                    }
+
+
+                     if (id==1)
+                    {
+                       request1Data= obj.eco_training_gear_status;
+                    }
+                     if (id==2)
+                    {
+                       request2Data= obj.eco_training_break_status;
+                    }
+                      if (id==3)
+                    {
+                       request3Data= obj.eco_training_pedal_pos_status;
+                    }
+                      if (id==4)
+                    {
+                       request4Data= obj.eco_training_engine_temperature_status;
+                    }
+
+                      if (id==5)
+                    {
+                       request5Data= obj.eco_training_engine_rpm_status;
+                    }
+                      if (id==6)
+                    {
+                       request6Data= obj.eco_training_engine_vehicule_speed_status;
+                    }
+                    if (id==7)
+                    {
+                        var res = obj.eco_training_time_status.split("T"); 
+                         request7DateData=res[0];
+                         request7TimeData=res[1];
+                    }
+                    if (id==8)
+                    {
+                      request8Data=obj.eco_training_distance_status;
+                    }
+                    if (id==9)
+                    {
+                      request9Data=obj.eco_training_fuel_consumption_status;
+                    }
+               };
+                
+                $('#StartJourney').click(function(e) {
+                    e.preventDefault();
+                    g1.refresh(500);
+                    g2.refresh(20);
+                   
+                  
+                   
+                });
+
+              
+
+            });
+
+
+
+function Resquest1handler( ) {
+     websocket.send('{"request":1}');
+     
+     
+     if (request1Data==0)
+     {
+        document.getElementById("gearIMG").src="images/gear-0.png"; 
+     }
+     else if (request1Data==1)
+     {
+        document.getElementById("gearIMG").src="images/gear-1.png"; 
+     }
+      else if (request1Data==2)
+     {
+        document.getElementById("gearIMG").src="images/gear-2.png"; 
+     }
+
+
+
+      else if (request1Data==3)
+     {
+        document.getElementById("gearIMG").src="images/gear-3.png"; 
+     }
+      else if (request1Data==4)
+     {
+        document.getElementById("gearIMG").src="images/gear-4.png"; 
+     }
+    else
+     {
+        document.getElementById("gearIMG").src="images/gear-5.png"; 
+     }
+}
+
+
+function Resquest2handler( ) {
+     websocket.send('{"request":2}');
+     
+     
+     if (request2Data=="Not pressed" || request2Data=="" )
+     {
+       document.getElementById("brakeIMG").src="images/brake-not-set.png"; 
+     }
+     else 
+     {
+        document.getElementById("brakeIMG").src="images/brake-set.png"; 
+
+     }
+   
+
+}
+
+
+function Resquest3handler() {
+
+     websocket.send('{"request":3}');
+
+      document.getElementById('dateID').value
+        
+     bar.animate(Number(request3Data) /100);
+  
+
+ }
+
+ function Resquest4handler() {
+
+     websocket.send('{"request":4}');
+
+     document.getElementById('TemperatureID').value=request4Data+" °C";
+        
+  
+  
+
+ }
+
+interval = setInterval(Resquest3handler, 200);
+function Resquest5handler( ) {
+     websocket.send('{"request":5}');
+     g1.refresh(request5Data);
+     
+    }
+
+
+function Resquest6handler( ) {
+     websocket.send('{"request":6}');
+     g2.refresh(request6Data);
+     
+     
+ 
+}
+
+function Resquest7handler( ) {
+     websocket.send('{"request":7}');
+     
+     document.getElementById('dateID').value = request7DateData;
+     document.getElementById('heureID').value = request7TimeData;
+}
+
+
+function Resquest8handler( ) {
+     websocket.send('{"request":8}');
+     
+     document.getElementById('distanceID').value = Math.abs((request8Data-StartTrajectDistance)/1000).toFixed(3)+" km";
+    
+}
+function Resquest9handler( ) {
+     websocket.send('{"request":9}');
+     
+     document.getElementById('consommationID').value =Math.abs(request9Data-StartTrajectFuel).toFixed(1)+" L";
+    
+}
+
+
+function TrajectTimehandler( ) {
+  var currentdate=new Date();
+
+  var difference= currentdate-StartTrajectDate;
+var lapse=new Date(difference); 
+          
+document.getElementById('JourneyTimeID').value=pad(lapse.getHours()-1)+':'+pad(lapse.getMinutes())+':'+pad(lapse.getSeconds());
+   
+}
+
+
+function ConsommationMoyhandler( ) {
+ 
+  request8tmp=Math.abs((request8Data-StartTrajectDistance)/1000).toFixed(3);
+  request9tmp=Math.abs(request9Data-StartTrajectFuel).toFixed(1);
+  request10Data=((request9tmp*100)/request8tmp).toFixed(2);
+   document.getElementById('consommationMoyID').value=request10Data+" L/100km";
+           
+
+   
+}
+
+function pad(d) {
+    return (d < 10) ? '0' + d.toString() : d.toString();
+}
+
+
+function sleep(milliSeconds){
+        var startTime = new Date().getTime();
+        while (new Date().getTime() < startTime + milliSeconds);
+}
+
+
+
+
+
+ swal({
+  title: "Démarrer un trajet",
+  text: "Saisir l'identifiant du conducteur:",
+  type: "input",
+
+  showCancelButton: false,
+  closeOnConfirm: false,
+  animation: "slide-from-top",
+  inputPlaceholder: "conducteur id"
+},
+function(value){
+
+  if (value === false) return false;
+  
+  if (value === "") {
+    swal.showInputError("Il faut saisir l'identifiant du conducteur");
+    return false;
+  }
+  else
+  {
+     websocket.send('{"request":0}');
+    
+   var now = new Date().getTime();
+    while(new Date().getTime() < now + 1000);
+    if (request0Data==1)
+    {
+       swal.showInputError("Impossible de démarrer le trajet");
+
+                  Resquest9Task=setInterval(Resquest9handler, 1000);
+       
+       return false;
+
+    }
+    else
+    {
+        swal("Trajet démarré avec le conducteur:" + value);
+     conducteur_id=value;
+     document.getElementById("conducteurID").value=conducteur_id; 
+                StartTrajectDate = new Date();
+                StartTrajectFuel=request9Data;
+                StartTrajectDistance=request8Data;
+
+                  Resquest1Task=setInterval(Resquest1handler, 400);/*200 */
+                  Resquest2Task=setInterval(Resquest2handler, 400);
+                  Resquest3Task=setInterval(Resquest3handler, 400);/*200 */
+                  Resquest4Task=setInterval(Resquest4handler, 400);  /*200 */                
+                  Resquest5Task=setInterval(Resquest5handler, 400);/*200 */
+                  Resquest6Task=setInterval(Resquest6handler, 400);/*200 */
+                  Resquest7Task=setInterval(Resquest7handler, 400);
+                  Resquest8Task=setInterval(Resquest8handler, 400);
+                  Resquest9Task=setInterval(Resquest9handler, 400);
+                  TrajectTimeTask=setInterval(TrajectTimehandler, 400);
+
+                  setInterval(ConsommationMoyhandler, 400);
+    } 
+
+  }
+
+});
+
+
+        </script>
+      </head>
+    <body bgcolor="#588101">
+
+        <section id="main_page">
+
+
+            <div  class="col_12" >
+                <div class="col_4">
+
+                        <table cellspacing="0" cellpadding="0">
+                      
+                          <tbody><tr>
+                            <td>Conducteur:</td>
+                             <td><input    id="conducteurID" type="text" size="8" readonly="readonly" /></td>
+                         
+                            </tr>
+                            
+                        </tbody>
+                    </table>
+                      
+                                    
+                </div>
+
+                <div class="col_4">
+                    <center>
+                    <h6>Eco Training</h6><br>
+                    <img class="caption" src="images/logo-actia.png" width="189" height="40" />
+                     </center>
+                </div>
+                <div class="col_4">
+                    <table cellspacing="0" cellpadding="0">
+                      
+                          <tbody><tr>
+                            <td>Date:</td>
+                             <td><input id="dateID" type="text" size="8" readonly="readonly"  /></td>
+                         
+                            </tr>
+                            <tr>
+                             <td>Heure:</td>
+                            <td><input id="heureID" type="text" size="8" readonly="readonly"   /></td>
+                           
+                             
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+             </tr>
+              <div  class="col_12" >
+                    <div class="col_6">
+           <center><div  id="g1" class="gauge"> </div></center></div>
+
+                <div class="col_6">
+
+                   <center> <div  id="g2" class="gauge"> </div></center>
+
+           </div>
+
+       </div>
+
+
+
+             <div>
+                <div  class="col_12" >
+                    <div class="col_6">
+                            <table cellspacing="0" cellpadding="0">
+                      
+                          <tbody><tr>
+                            <td>Temps:</td>
+                             <td><input id="JourneyTimeID" type="text" size="8" readonly="readonly" /></td>
+
+                         
+                            </tr>
+                            <tr>
+                             <td>Distance:</td>
+                            <td><input id="distanceID" type="text" size="8" readonly="readonly" /></td>
+                           
+                            </tr>
+                              <tr>
+                             <td>Consommation:</td>
+                            <td><input id="consommationID" type="text" size="8" readonly="readonly" /></td>
+                            </tr>
+                              <tr>
+                             <td>Consommation moy.:</td>
+                            <td><input id="consommationMoyID" type="text" size="8" readonly="readonly" /></td>
+                            </tr>
+
+                            
+                        </tbody>
+                    </table>
+
+
+
+                    </div>
+                    <div class="col_6">
+                        <table cellspacing="0" cellpadding="0">
+                      
+                          <tbody><tr>
+                            <td>Température moteur:</td>
+                             <td><input id="TemperatureID" type="text" size="8" readonly="readonly" /></td>
+                         
+                            </tr>
+                            <tr>
+                             <td>pédale accélérateur:</td>
+
+                             
+                             <td> <div id="container"></div></td>
+                             <td><p id="pedalID"></p></td>
+
+
+                         
+                            </tr>
+                              <tr>
+                             <td>pédale frein:</td>
+                           
+                           <td> <img id="brakeIMG" src="images/brake-not-set.png" width="50" height="50"></img></td>
+                            </tr>
+                            <tr>
+                             <td>Rapport boite:</td>
+                           
+                             <td> <img id="gearIMG" src="images/gear-0.png" ></img></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+
+                    </div>
+                   
+                   
+                    
+                </div>
+                  
+
+           
+           </div>
+
+        </section>
+
+
+    </body>
+</html>
+

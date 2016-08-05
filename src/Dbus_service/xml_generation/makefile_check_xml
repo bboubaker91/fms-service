@@ -1,0 +1,22 @@
+# One extra target (which requires xmllint, from package libxml2-utils)
+# is available to verify the well-formedness and the structure of the
+# interface definition xml file.
+#
+# Use the 'checkxml' target to run the interface XML through xmllint
+# verification. You'll need to be connected to the Internet in order
+# for xmllint to retrieve the DTD from fd.o (unless you setup local
+# catalogs, which are not covered here).
+
+# ... Listing cut for brevity ...
+
+# Interface XML name (used in multiple targets)
+interface_xml := fms.xml
+
+# ... Listing cut for brevity ...
+
+# Special target to run DTD validation on the interface XML. Not run
+# automatically (since xmllint isn't always available and also needs
+# Internet connectivity).
+checkxml: $(interface_xml)
+	@xmllint --valid --noout $<
+	@echo $< checks out ok
