@@ -109,12 +109,23 @@ G_END_DECLS
 #include <dbus/dbus-glib.h>
 static const DBusGMethodInfo dbus_glib_value_object_methods[] = {
   { (GCallback) value_object_service_state, dbus_glib_marshal_value_object_BOOLEAN__POINTER_POINTER, 0 },
+  { (GCallback) value_object_get_gear, dbus_glib_marshal_value_object_BOOLEAN__POINTER_POINTER, 53 },
+  { (GCallback) value_object_get_brake_state, dbus_glib_marshal_value_object_BOOLEAN__POINTER_POINTER, 105 },
+  { (GCallback) value_object_get_pedal_position, dbus_glib_marshal_value_object_BOOLEAN__POINTER_POINTER, 169 },
+  { (GCallback) value_object_get_engine_temperature, dbus_glib_marshal_value_object_BOOLEAN__POINTER_POINTER, 239 },
+  { (GCallback) value_object_get_engine_temperature, dbus_glib_marshal_value_object_BOOLEAN__POINTER_POINTER, 317 },
+  { (GCallback) value_object_get_engine_rp_m, dbus_glib_marshal_value_object_BOOLEAN__POINTER_POINTER, 395 },
+  { (GCallback) value_object_get_vehicule_speed, dbus_glib_marshal_value_object_BOOLEAN__POINTER_POINTER, 457 },
+  { (GCallback) value_object_get_time, dbus_glib_marshal_value_object_BOOLEAN__POINTER_POINTER, 527 },
+  { (GCallback) value_object_get_total_distance, dbus_glib_marshal_value_object_BOOLEAN__POINTER_POINTER, 579 },
+  { (GCallback) value_object_get_total_distance, dbus_glib_marshal_value_object_BOOLEAN__POINTER_POINTER, 649 },
+  { (GCallback) value_object_get_fuel_consumption, dbus_glib_marshal_value_object_BOOLEAN__POINTER_POINTER, 719 },
 };
 
 const DBusGObjectInfo dbus_glib_value_object_object_info = {  1,
   dbus_glib_value_object_methods,
-  1,
-"com.actia.platform.fms\0ServiceState\0S\0state\0O\0F\0N\0b\0\0\0",
+  12,
+"com.actia.platform.fms\0ServiceState\0S\0state\0O\0F\0N\0b\0\0com.actia.platform.fms\0GetGear\0S\0gearValue\0O\0F\0N\0s\0\0com.actia.platform.fms\0GetBrakeState\0S\0BrakeStateValue\0O\0F\0N\0s\0\0com.actia.platform.fms\0GetPedalPosition\0S\0pedalPositionValue\0O\0F\0N\0s\0\0com.actia.platform.fms\0GetEngineTemperature\0S\0engineTemperatureValue\0O\0F\0N\0s\0\0com.actia.platform.fms\0GetEngineTemperature\0S\0engineTemperatureValue\0O\0F\0N\0s\0\0com.actia.platform.fms\0GetEngineRPM\0S\0engineRPMValue\0O\0F\0N\0s\0\0com.actia.platform.fms\0GetVehiculeSpeed\0S\0vehiculeSpeedValue\0O\0F\0N\0s\0\0com.actia.platform.fms\0GetTime\0S\0timeValue\0O\0F\0N\0s\0\0com.actia.platform.fms\0GetTotalDistance\0S\0totalDistanceValue\0O\0F\0N\0s\0\0com.actia.platform.fms\0GetTotalDistance\0S\0totalDistanceValue\0O\0F\0N\0s\0\0com.actia.platform.fms\0GetFuelConsumption\0S\0fuelConsumptionValue\0O\0F\0N\0s\0\0\0",
 "\0",
 "\0"
 };

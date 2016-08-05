@@ -28,5 +28,51 @@
      
       <arg type="b" name="state" direction="out"/>
     </method>
+
+     <method name="GetGear">
+      <arg type="s" name="gearValue" direction="out"/>
+    </method>
+
+     <method name="GetBrakeState">
+      <arg type="s" name="BrakeStateValue" direction="out"/>
+    </method>
+
+     <method name="GetPedalPosition">
+      <arg type="s" name="pedalPositionValue" direction="out"/>
+    </method>
+
+     <method name="GetEngineTemperature">
+      <arg type="s" name="engineTemperatureValue" direction="out"/>
+    </method>
+
+     <method name="GetEngineTemperature">
+      <arg type="s" name="engineTemperatureValue" direction="out"/>
+    </method>
+
+     <method name="GetEngineRPM">
+      <arg type="s" name="engineRPMValue" direction="out"/>
+    </method>
+
+    <method name="GetVehiculeSpeed">
+      <arg type="s" name="vehiculeSpeedValue" direction="out"/>
+    </method>
+
+    <method name="GetTime">
+      <arg type="s" name="timeValue" direction="out"/>
+    </method>
+
+    <method name="GetTotalDistance">
+      <arg type="s" name="totalDistanceValue" direction="out"/>
+    </method>
+
+     <method name="GetTotalDistance">
+      <arg type="s" name="totalDistanceValue" direction="out"/>
+    </method>
+
+    <method name="GetFuelConsumption">
+      <arg type="s" name="fuelConsumptionValue" direction="out"/>
+    </method>
+
+
   </interface>
 </node>
