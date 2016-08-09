@@ -30,10 +30,10 @@
     </method>
 
      <method name="GetGear">
-      <arg type="s" name="gearValue" direction="out"/>
+      <arg type="i" name="gearValue" direction="out"/>
     </method>
 
-     <method name="GetBrakeState">
+   <!--  <method name="GetBrakeState">
       <arg type="s" name="BrakeStateValue" direction="out"/>
     </method>
 
@@ -45,11 +45,7 @@
       <arg type="s" name="engineTemperatureValue" direction="out"/>
     </method>
 
-     <method name="GetEngineTemperature">
-      <arg type="s" name="engineTemperatureValue" direction="out"/>
-    </method>
-
-     <method name="GetEngineRPM">
+    <method name="GetEngineRPM">
       <arg type="s" name="engineRPMValue" direction="out"/>
     </method>
 
@@ -65,13 +61,10 @@
       <arg type="s" name="totalDistanceValue" direction="out"/>
     </method>
 
-     <method name="GetTotalDistance">
-      <arg type="s" name="totalDistanceValue" direction="out"/>
-    </method>
 
     <method name="GetFuelConsumption">
       <arg type="s" name="fuelConsumptionValue" direction="out"/>
-    </method>
+    </method>-->
 
 
   </interface>

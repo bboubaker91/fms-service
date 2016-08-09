@@ -50,7 +50,8 @@ typedef struct {
   /* Our first per-object state variable. */
   gboolean value1;
   /* Our second per-object state variable. */
-
+   gint value2;
+  
 } ValueObject;
 
 /* Per class state.
@@ -94,13 +95,13 @@ GType value_object_get_type(void);
 /* Utility macro to define the value_object GType structure. */
 G_DEFINE_TYPE(ValueObject, value_object, G_TYPE_OBJECT)
 
-gboolean value_object_service_state(ValueObject* obj, gboolean* value_out,
-                                                  GError** error);
+gboolean value_object_service_state(ValueObject* obj, gboolean* value_out, GError** error);
+gboolean value_object_get_gear(ValueObject* obj, gint* value_out, GError** error);
 
 /**
  * Pull in the stub for the server side.
  */
-#include "fms-server-stub.h"
+#include "./generated_from_xml/fms-server-stub.h"
 
   /*... Listing cut for brevity ...*/
 
@@ -114,8 +115,10 @@ static void value_object_init(ValueObject* obj) {
 
   g_assert(obj != NULL);
 
-  obj->value1 = FALSE;
-  
+  obj->value1 = TRUE;
+  obj->value2 = 2;
+
+
 }
 /**
  * Per class initializer
@@ -139,8 +142,7 @@ static void value_object_class_init(ValueObjectClass* klass) {
            Specifically, this function adds "method introspection
            data" to the class so that methods can be called over
            the D-Bus. */
-  dbus_g_object_type_install_info(VALUE_TYPE_OBJECT,
-                                 &dbus_glib_value_object_object_info);
+  dbus_g_object_type_install_info(VALUE_TYPE_OBJECT, &dbus_glib_value_object_object_info);
 
  // dbg("Done");
   /* All done. Class is ready to be used for instantiating objects */
@@ -165,11 +167,33 @@ gboolean value_object_service_state(ValueObject* obj, gboolean* value_out, GErro
 
   /* Change the value. */
   obj->value1 = TRUE;
+  *value_out = obj->value1;
 
   /* Return success to GLib/D-Bus wrappers. In this case we don't need
      to touch the supplied error pointer-pointer. */
   return TRUE;
 }
+
+
+gboolean value_object_get_gear(ValueObject* obj, gint* value_out, GError** error) {
+
+ // dbg("Called (valueIn=%d)", value_out);
+g_print("kkkkkkkkkkkkkkkkk\n");
+g_assert(obj != NULL);
+g_print("kkkkkkkkkkkkkkkkk111\n");
+  /* Change the value. */
+//gchar* val=NULL;
+obj->value1 = 6;
+
+ *value_out=obj->value1;
+  g_print("kkkkkkkkkkkkkkkkk333\n");
+  //*value_out = obj->value2;
+  /* Return success to GLib/D-Bus wrappers. In this case we don't need
+     to touch the supplied error pointer-pointer. */
+  return TRUE;
+}
+
+
 
 
 #include "common-defs.h"

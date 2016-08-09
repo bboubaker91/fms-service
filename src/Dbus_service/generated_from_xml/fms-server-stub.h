@@ -109,12 +109,13 @@ G_END_DECLS
 #include <dbus/dbus-glib.h>
 static const DBusGMethodInfo dbus_glib_value_object_methods[] = {
   { (GCallback) value_object_service_state, dbus_glib_marshal_value_object_BOOLEAN__POINTER_POINTER, 0 },
+  { (GCallback) value_object_get_gear, dbus_glib_marshal_value_object_BOOLEAN__POINTER_POINTER, 53 },
 };
 
 const DBusGObjectInfo dbus_glib_value_object_object_info = {  1,
   dbus_glib_value_object_methods,
-  1,
-"com.actia.platform.fms\0ServiceState\0S\0state\0O\0F\0N\0b\0\0\0",
+  2,
+"com.actia.platform.fms\0ServiceState\0S\0state\0O\0F\0N\0b\0\0com.actia.platform.fms\0GetGear\0S\0gearValue\0O\0F\0N\0i\0\0\0",
 "\0",
 "\0"
 };
