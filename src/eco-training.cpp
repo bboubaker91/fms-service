@@ -114,6 +114,7 @@ void printConsoleWorker() {
 }
 
 int main() {
+	usleep(700000);
 	std::map<uint32_t, PGN> allPGNs;
 	std::map<int, std::string> allPorts;
 	LoadConfig *configuration = new LoadConfig();
