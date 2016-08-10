@@ -1,6 +1,6 @@
 CFLAGS = -c -Wall -Werror  -lpthread -lwebsockets -std=c++11 -O2\
-         $(shell pkg-config --cflags dbus-c++-shiny-1 glib-2.0 actia-platform-1 libwebsockets) -I/usr/local/include/ -I./lib/include
-LDFLAGS =$(shell pkg-config --libs dbus-c++-shiny-1 glib-2.0 libwebsockets) -I/usr/local/include/ -I./lib/include
+         $(shell pkg-config --cflags dbus-c++-shiny-1 glib-2.0 actia-platform-1 libwebsockets)  -I./lib/include
+LDFLAGS =$(shell pkg-config --libs dbus-c++-shiny-1 glib-2.0 libwebsockets)  -I./lib/include
 
 
 SOURCES=$(wildcard lib/include/SimpleJSON/*.cpp lib/include/tinyXML/*.cpp)
