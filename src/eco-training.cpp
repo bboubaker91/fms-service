@@ -133,6 +133,7 @@ int main() {
 
 	can1.getConfiguration()->StopInterface();
 	can0.getConfiguration()->StopInterface();
+	usleep(700000);
 	can0.getConfiguration()->StartInterface(250000);
 
 
