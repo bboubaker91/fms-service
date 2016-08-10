@@ -12,7 +12,7 @@ ObjectDir=./../obj/
 TARGET = fms-service
 Objects = eco-training.o 
 
-CExecutable=$(addprefix $(BinDir),$(TARGET))
+CExecutable= $(TARGET)
 CObjects=$(addprefix $(ObjectDir),$(Objects))
 all: $(SOURCES) $(Objects)
 	$(CXX) $^ -o $(CExecutable) $(LDFLAGS)
