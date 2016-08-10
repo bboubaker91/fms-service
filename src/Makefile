@@ -9,7 +9,7 @@ SOURCES=$(wildcard lib/include/SimpleJSON/*.cpp lib/include/tinyXML/*.cpp)
 
 BinDir=./../bin/
 ObjectDir=./../obj/
-TARGET = eco-training
+TARGET = fms-service
 Objects = eco-training.o 
 
 CExecutable=$(addprefix $(BinDir),$(TARGET))
