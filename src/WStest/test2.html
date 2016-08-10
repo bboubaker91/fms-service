@@ -1,0 +1,111 @@
+
+ <!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+        <script type="text/javascript">
+        var websocket;
+            $(function() {
+                window.WebSocket = window.WebSocket || window.MozWebSocket;
+                 websocket = new WebSocket('ws://172.24.239.195:9001', 'myprotocol');
+                websocket.onopen = function () {
+                    $('h1').css('color', 'green');
+                };
+                websocket.onerror = function () {
+                    $('h1').css('color', 'red');
+                };
+                websocket.onmessage = function (message) {
+                    console.log(message.data);
+                    $('div').prepend($('<p>', { text: message.data }));
+                };
+                
+                $('#StartJourney').click(function(e) {
+                    e.preventDefault();
+                    websocket.send('{"request":0}');
+                    $('input').val('{"request":0}');
+                });
+
+                $('#Gear').click(function(e) {
+                    e.preventDefault();
+                    websocket.send('{"request":1}');
+                    $('input').val('{"request":1}');
+                    
+                });
+
+                $('#Break').click(function(e) {
+                    e.preventDefault();
+                    websocket.send('{"request":2}');
+                    $('input').val('{"request":2}');
+                });
+
+                $('#Pedal').click(function(e) {
+                    e.preventDefault();
+                    websocket.send('{"request":3}');
+                    $('input').val('{"request":3}');
+                });
+
+                $('#EngineTemperature').click(function(e) {
+                    e.preventDefault();
+                    websocket.send('{"request":4}');
+                    $('input').val('{"request":4}');
+                });
+
+                $('#EngineRPM').click(function(e) {
+                    e.preventDefault();
+                    websocket.send('{"request":5}');
+                    $('input').val('{"request":5}');
+                });
+
+                $('#Speed').click(function(e) {
+                    e.preventDefault();
+                    websocket.send('{"request":6}');
+                    $('input').val('{"request":6}');
+                });
+
+
+                $('#Date').click(function(e) {
+                    e.preventDefault();
+                    websocket.send('{"request":7}');
+                    $('input').val('{"request":7}');
+                });
+
+                $('#Custom').click(function(e) {
+                    e.preventDefault();
+                    websocket.send($('input').val());
+                });
+
+                $('#Clear').click(function(e) {
+                    e.preventDefault();
+                    $('div').html("");;
+                });
+
+            });
+
+;
+        </script>
+        </head>
+    <body>
+        <h1>ACU III WebSockets test</h1>
+        <form>
+            <input type="text" />
+            <button id="Custom">Send Custom Msg</button>
+            <button id="StartJourney">Start journey</button>
+            <button id="Gear">gear</button>
+            <button id="Break">Brake</button>
+            <button id="Pedal">Pedale</button>
+            <button id="EngineTemperature">Engine temperature</button>
+            <button id="EngineRPM">Engine RPM</button>    
+            <button id="Speed">speed</button>            
+            <button id="Date">date</button>
+
+            <br>
+           
+            
+            
+       
+            <button id="Clear">Clear</button>
+        </form>
+        <div></div>
+    </body>
+</html>
