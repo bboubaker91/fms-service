@@ -137,7 +137,7 @@ bar = new ProgressBar.Line(container, {
             $(function() {
               
                 window.WebSocket = window.WebSocket || window.MozWebSocket;
-                 websocket = new WebSocket('ws://172.24.239.163:9001', 'myprotocol');
+                 websocket = new WebSocket('ws://172.24.239.100:9001', 'myprotocol');
                 websocket.onopen = function () {
                    
                     websocket.send('{"request":0}');

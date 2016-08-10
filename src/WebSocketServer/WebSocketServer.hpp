@@ -26,7 +26,7 @@ using namespace std;
 #define MAX_BUFFER_SIZE 0
 
 #define ECO_DRIVE_WS_DATA_SIZE    256
-char resource_path[40] = "/media/apps/eco-training/www";
+char resource_path[40] = "./src/www";
 
 WebSocketServer *self;
 
